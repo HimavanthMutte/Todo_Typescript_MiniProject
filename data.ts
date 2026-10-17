@@ -24,3 +24,4 @@ const TODOS:Todo[] = [
   }
 ]
 
+export default TODOS
