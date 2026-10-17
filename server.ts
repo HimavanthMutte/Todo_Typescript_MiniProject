@@ -4,6 +4,8 @@ import todoRouter from "./routes/todoRoutes.ts"
 
 const app = express() 
 
+app.use(express.json())
+
 app.use("/todos",todoRouter)
 
 app.listen(3000,()=>{
