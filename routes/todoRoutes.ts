@@ -4,7 +4,7 @@ import TODOS from "../data.js"
 
 import { GetAllTodos, GetTodo, ErrorMsg, PostTodoResponse, DeleteMsg} from "../types/responseType.js"
 
-import { PostTodoRequest } from "../types/requestTypes.js"
+import { PostTodoRequest, PutTodoRequest } from "../types/requestTypes.js"
 
 const todoRouter = express.Router()
 
@@ -58,6 +58,25 @@ todoRouter.delete("/:id",(req:Request,res:Response<DeleteMsg|ErrorMsg>)=>{
 
 })
 
-todoRouter.put("/:id",()=>{})
+todoRouter.put("/:id",(req:Request<PutTodoRequest>,res:Response)=>{
+    try {
+        const itemIndex = TODOS.findIndex(item=>item.id===(+req.params.id))
+        if (itemIndex===-1) throw new Error("Invalid ID Provided")
+        TODOS[itemIndex] = {
+            id: +req.params.id,
+            title: req.body.title,
+            description: req.body.description
+        }
+        res.status(200).json({
+            message: "Updation Success"
+        })
+    }
+    catch(err) {
+        const errorMsg = err instanceof Error ? err.message : "Unexpected Error"
+        return res.status(400).json({
+            message: errorMsg
+        })
+    }
+})
 
 export default todoRouter
