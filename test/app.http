@@ -3,4 +3,15 @@ GET http://localhost:3000/todos/
 ###
 
 //GET Todo by ID
-GET http://localhost:3000/todos/1
+GET http://localhost:3000/todos/7
+### 
+
+
+//POST Todo
+POST http://localhost:3000/todos/
+Content-Type: application/json
+
+{
+    "title": "New Todo",
+    "description": "This is a new todo item"
+}
