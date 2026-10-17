@@ -1,0 +1,6 @@
+//GET all Todos
+GET http://localhost:3000/todos/
+###
+
+//GET Todo by ID
+GET http://localhost:3000/todos/1
