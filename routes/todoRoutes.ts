@@ -2,7 +2,7 @@ import express, {Request, Response} from "express"
 
 import TODOS from "../data.js"
 
-import { GetAllTodos, GetTodo, ErrorMsg, PostTodoResponse} from "../types/responseType.js"
+import { GetAllTodos, GetTodo, ErrorMsg, PostTodoResponse, DeleteMsg} from "../types/responseType.js"
 
 import { PostTodoRequest } from "../types/requestTypes.js"
 
@@ -18,7 +18,7 @@ todoRouter.get("/",(req:Request,res:Response<GetAllTodos>)=>{
 todoRouter.get("/:id",(req:Request,res:Response<GetTodo|ErrorMsg>)=>{
     try {
         const todo = TODOS.find(item=>item.id===(+req.params.id))
-        if (!todo) throw new Error("Invalid ID provided")
+        if (!todo) throw new Error("Invalid ID Provided")
         return res.status(200).json(todo)
     }
     catch(err) {
@@ -40,7 +40,23 @@ todoRouter.post("/",(req:Request<PostTodoRequest>,res:Response<PostTodoResponse>
     res.status(201).json(newItem)
 })
 
-todoRouter.delete("/:id",()=>{})
+todoRouter.delete("/:id",(req:Request,res:Response<DeleteMsg|ErrorMsg>)=>{
+    try {
+        const todo = TODOS.find(item=>item.id===(+req.params.id))
+        if (!todo) throw new Error("Invalid ID Provided")
+        TODOS.splice(TODOS.findIndex(item=>item.id===(+req.params.id)), 1)
+        res.status(200).json({
+            message: "Deletion Success"
+        })
+    }
+    catch(err) {
+        const errorMsg = err instanceof Error ? err.message : "Unexpected Error"
+        return res.status(400).json({
+            message: errorMsg
+        })
+    }
+
+})
 
 todoRouter.put("/:id",()=>{})
 
