@@ -1,6 +1,6 @@
 import { Todo } from "./todoType"
 
-export type PostTodo = {
+export type PostTodoRequest = {
     title: string,
     description: string
 }
