@@ -16,3 +16,5 @@ export type PostTodoResponse = Todo
 export type DeleteMsg = {
     message: string
 }
+
+export type UpdateMsg = DeleteMsg
