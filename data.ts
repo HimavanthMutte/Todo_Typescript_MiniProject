@@ -1,10 +1,5 @@
-//ADD , DELETE , UPDATE , READ
+import {Todo} from "./types/todoType"
 
-type Todo = {
-    id: number,
-    title: string,
-    description: string
-}
 
 const TODOS:Todo[] = [
   {
