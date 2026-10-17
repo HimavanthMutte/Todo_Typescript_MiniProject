@@ -16,18 +16,10 @@ todoRouter.get("/",(req:Request,res:Response<GetAllTodos>)=>{
 })
 
 todoRouter.get("/:id",(req:Request,res:Response<GetTodo|ErrorMsg>)=>{
-    try {
         const todo = TODOS.find(item=>item.id===(+req.params.id))
         if (!todo) throw new Error("Invalid ID Provided")
         return res.status(200).json(todo)
-    }
-    catch(err) {
-        const errorMsg = err instanceof Error ? err.message : "Unexpected Error"
-        return res.status(400).json({
-            message: errorMsg
-        })
-    }
-})
+    })
 
 todoRouter.post("/",(req:Request<PostTodoRequest>,res:Response<PostTodoResponse>)=>{
     const {title,description} = req.body
@@ -41,25 +33,15 @@ todoRouter.post("/",(req:Request<PostTodoRequest>,res:Response<PostTodoResponse>
 })
 
 todoRouter.delete("/:id",(req:Request,res:Response<DeleteMsg|ErrorMsg>)=>{
-    try {
         const todo = TODOS.find(item=>item.id===(+req.params.id))
         if (!todo) throw new Error("Invalid ID Provided")
         TODOS.splice(TODOS.findIndex(item=>item.id===(+req.params.id)), 1)
         res.status(200).json({
             message: "Deletion Success"
         })
-    }
-    catch(err) {
-        const errorMsg = err instanceof Error ? err.message : "Unexpected Error"
-        return res.status(400).json({
-            message: errorMsg
-        })
-    }
-
 })
 
 todoRouter.put("/:id",(req:Request<PutTodoRequest>,res:Response)=>{
-    try {
         const itemIndex = TODOS.findIndex(item=>item.id===(+req.params.id))
         if (itemIndex===-1) throw new Error("Invalid ID Provided")
         TODOS[itemIndex] = {
@@ -70,13 +52,6 @@ todoRouter.put("/:id",(req:Request<PutTodoRequest>,res:Response)=>{
         res.status(200).json({
             message: "Updation Success"
         })
-    }
-    catch(err) {
-        const errorMsg = err instanceof Error ? err.message : "Unexpected Error"
-        return res.status(400).json({
-            message: errorMsg
-        })
-    }
 })
 
 export default todoRouter
