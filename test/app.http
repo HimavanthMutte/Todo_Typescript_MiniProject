@@ -1,13 +1,10 @@
-//GET all Todos
+
 GET http://localhost:3000/todos/
 ###
 
-//GET Todo by ID
 GET http://localhost:3000/todos/7
 ### 
 
-
-//POST Todo
 POST http://localhost:3000/todos/
 Content-Type: application/json
 
@@ -17,4 +14,13 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:3000/todos/87
+DELETE http://localhost:3000/todos/1
+###
+
+PUT http://localhost:3000/todos/1
+Content-Type: application/json
+
+{
+    "title": "Updated Todo",
+    "description": "Updated description"
+}
