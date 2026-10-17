@@ -1,8 +1,17 @@
-import express from "express"
+import express, {Request, Response} from "express"
+
+import TODOS from "../data.js"
+
+import { GetAllTodos } from "../types/responseType.js"
 
 const todoRouter = express.Router()
 
-todoRouter.get("/",()=>{})
+todoRouter.get("/",(req:Request,res:Response<GetAllTodos>)=>{
+    res.status(200).json({
+        items: TODOS,
+        length: TODOS.length
+    })
+})
 
 todoRouter.get("/:id",()=>{})
 
