@@ -2,7 +2,9 @@ import express, {Request, Response} from "express"
 
 import TODOS from "../data.js"
 
-import { GetAllTodos, GetTodo, ErrorMsg} from "../types/responseType.js"
+import { GetAllTodos, GetTodo, ErrorMsg, PostTodoResponse} from "../types/responseType.js"
+
+import { PostTodoRequest } from "../types/requestTypes.js"
 
 const todoRouter = express.Router()
 
@@ -27,7 +29,16 @@ todoRouter.get("/:id",(req:Request,res:Response<GetTodo|ErrorMsg>)=>{
     }
 })
 
-todoRouter.post("/",()=>{})
+todoRouter.post("/",(req:Request<PostTodoRequest>,res:Response<PostTodoResponse>)=>{
+    const {title,description} = req.body
+    const newItem = {
+        id: Math.floor(Math.random()*1000),
+        title,
+        description
+    }
+    TODOS.push(newItem)
+    res.status(201).json(newItem)
+})
 
 todoRouter.delete("/:id",()=>{})
 
